@@ -29,3 +29,9 @@ npm run build
 ```sh
 npm run lint
 ```
+
+### Env
+
+```sh
+echo "VITE_DJANGO_BASE_URL=localhost:8000" >> .env 
+```
