@@ -1,38 +1,64 @@
-Model: Product, Contact, BillProduct, Bill
-Le projet doit être réalisé avec Django >=  5.0 et django-rest-framework >= 3.15.
-Le candidat devra mettre en place les 4 Models.
-Le model Product servira à recenser les produits disponibles
-Le model Contact servira à lister les contact disponible dans la Boxfid.
+# Backend - API de Gestion de Transactions
 
-Le model Bill permettra de voir toutes les transactions réalisées 
-Le model BillProduct permettra de connaitre les produits utilisés pour la transactions 
+## Prérequis
 
-Contact:
+- Django >= 5.0
+- Django REST Framework >= 3.15
 
-id
+## Description
 
-first_name
+Ce projet implémente une API de gestion de transactions avec un système de points pour les contacts.
 
-last_name
+## Modèles de Données
 
-email
+### Contact
 
-current-balance
+Gère les informations des contacts et leur solde de points.
 
-Product:
+- `id` : Identifiant unique
+- `first_name` : Prénom
+- `last_name` : Nom
+- `email` : Adresse email
+- `current_balance` : Solde de points actuel
 
-id
+### Product
 
-title
+Recense les produits disponibles.
 
-is_eligible
+- `id` : Identifiant unique
+- `title` : Nom du produit
+- `is_eligible` : Éligibilité aux points (boolean)
+- `price` : Prix du produit
 
-price
+### Bill
 
-API POST:
-L’api doit avoir avoir en entrée l’id du contact, le montant total de la transactions, le nombre de point gagné pour le contact,  le numéro de la transaction, ainsi que les informations nécessaires pour la création de la ligne de transactions.
-Cette API doit pouvoir créer la transactions dans la table bill et ajouter dans la table bill_product l’id de la transaction ainsi que le produit utilisé et le montant du produit puis mettre a jour la current_balance du contact. 
-Le nombre de point gagné pour une transaction est la valeur du montant de la totalité des produits si celui ci est eligible.   
+Enregistre les transactions réalisées.
 
+- Contient les informations de chaque transaction
+- Lié aux contacts et aux produits via `BillProduct`
 
+### BillProduct
 
+Table de liaison entre les factures et les produits.
+
+- Associe les produits utilisés à chaque transaction
+- Stocke le montant de chaque produit dans la transaction
+
+## API
+
+### POST - Créer une transaction
+
+**Entrées :**
+- ID du contact
+- Montant total de la transaction
+- Nombre de points gagnés
+- Numéro de transaction
+- Informations des produits (ID produit, montant)
+
+**Fonctionnement :**
+1. Crée une nouvelle entrée dans la table `Bill`
+2. Ajoute les produits associés dans `BillProduct`
+3. Met à jour le `current_balance` du contact
+
+**Calcul des points :**
+Le nombre de points gagnés correspond au montant total des produits éligibles (`is_eligible = True`).
