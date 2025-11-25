@@ -20,14 +20,5 @@ services:
     depends_on:
       - web
 
-  db:
-    image: postgres:15
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=django_test
-      - POSTGRES_PASSWORD=django_test
-      - POSTGRES_DB=django_test
-
 volumes:
   postgres_data:
