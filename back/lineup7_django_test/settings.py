@@ -28,6 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+    "http://localhost:5173",
+    "http://localhost:80",
+    "http://127.0.0.1:8080",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:80",
+]
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -41,7 +50,8 @@ INSTALLED_APPS = [
 
 # Applications mains
 INSTALLED_APPS += [
-    'loyalty'
+    'loyalty',
+    'corsheaders',
 ]
 
 # Applications added
@@ -52,6 +62,7 @@ INSTALLED_APPS += [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
